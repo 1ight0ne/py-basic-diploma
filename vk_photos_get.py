@@ -1,5 +1,5 @@
-from conf import VK_TOKEN, VK_USER_ID, VK_VERSON, VK_API_URL
 import requests
+from conf import VK_TOKEN, VK_USER_ID, VK_VERSON, VK_API_URL
 
 
 class VkPhotosGet:
@@ -8,8 +8,7 @@ class VkPhotosGet:
         self.version = version
         self.photo_count = photo_count
         self.user_id = user_id
-        self.links_list = []
-        self.count_photo_likes = 0
+        self.photos_list = []
 
     def get_photos(self):
         link = VK_API_URL + "photos.get"
@@ -22,18 +21,20 @@ class VkPhotosGet:
                 "count": self.photo_count,
                 "extended": 1,
                 "owner_id": self.user_id,
-                "photo_sizes": 1,
-            },
+                "photo_sizes": 1
+            }
         )
         res_json = res.json()["response"]["items"]
         vk_photo_sizes = 'smxopqryzw'
         for photo in res_json:
             self.count_photo_likes = photo["likes"]["count"]
-            biggest_size = max(photo["sizes"], key=lambda s: vk_photo_sizes.index(s["type"]))
+            largest_photo = max(
+                photo["sizes"], key=lambda s: vk_photo_sizes.index(s["type"]))
             new_dict = {
                 "photoID": photo["id"],
-                "photo_size": biggest_size,
-                "photo_type": biggest_size["type"],
+                "photo_size": largest_photo,
+                "photo_type": largest_photo["type"],
+                "likes": photo["likes"]["count"]
             }
-            self.links_list.append(new_dict)
-        return self.links_list
+            self.photos_list.append(new_dict)
+        return self.photos_list
