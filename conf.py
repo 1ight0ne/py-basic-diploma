@@ -6,8 +6,8 @@ if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
     VK_TOKEN = os.getenv("VK_TOKEN")
     YA_TOKEN = os.getenv("YA_TOKEN")
-    API_URL = "https://api.vk.com/method/"
-    VK_USER_ID = os.getenv("USER_ID")
-    VK_VERSON = os.getenv("VERSON_VK")
+    VK_USER_ID = os.getenv("VK_USER_ID")
+    VK_VERSON = os.getenv("VK_VERSON")
+    VK_API_URL = os.getenv("VK_API_URL")
 else:
     print('файл .env не найден')
