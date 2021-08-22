@@ -3,7 +3,8 @@ from conf import VK_TOKEN, VK_USER_ID, VK_VERSON, VK_API_URL
 
 
 class VkPhotosGet:
-    def __init__(self, token=VK_TOKEN, version=VK_VERSON, photo_count=5, user_id=VK_USER_ID):
+    def __init__(self, token=VK_TOKEN, version=VK_VERSON,
+                 photo_count=5, user_id=VK_USER_ID):
         self.token = token
         self.version = version
         self.photo_count = photo_count
