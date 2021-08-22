@@ -1,5 +1,8 @@
-from dotenv import load_dotenv
 import os
+import logging
+
+from dotenv import load_dotenv
+
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 if os.path.exists(dotenv_path):
@@ -10,4 +13,4 @@ if os.path.exists(dotenv_path):
     VK_VERSON = os.getenv("VK_VERSON")
     VK_API_URL = os.getenv("VK_API_URL")
 else:
-    print('файл .env не найден')
+    logging.error('файл .env не найден')

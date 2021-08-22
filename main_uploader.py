@@ -1,5 +1,6 @@
 import os
 import json
+import logging
 import requests
 from datetime import datetime
 
@@ -17,7 +18,7 @@ class YandexUpload(VkPhotosGet):
             "Authorization": f"OAuth {token}"
         }
         return_list = []
-        print("Копирование на Yandex.Disk")
+        logging.info("Копирование на Yandex.Disk")
         with alive_bar(len(self.photos_list)) as bar:
             for el in self.photos_list:
                 bar()
@@ -33,18 +34,19 @@ class YandexUpload(VkPhotosGet):
                     }
                 )
                 if result.status_code != 202:
-                    print(f"ошибка! Код: {result.status_code} {result.json()}")
+                    logging.error(f"ошибка! Код: {result.status_code} {result.json()}")
                     return result
                 return_dict = {
                     "file_name": file_name,
                     "size": el["photo_type"]
                 }
                 return_list.append(return_dict)
-        print(f'Загрузка завершена')
+        logging.info('Загрузка завершена')
         return return_list
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     new_upload = YandexUpload()
     new_upload.get_photos()
     output_file = os.path.join(os.path.dirname(__file__), 'output.json')
