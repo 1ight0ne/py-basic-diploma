@@ -15,6 +15,7 @@ class VkPhotosGet:
 
     def get_photos(self):
         link = VK_API_URL + "photos.get"
+        logging.info("Получение списка фото из VK")
         res = requests.get(
             link,
             params={
@@ -44,4 +45,5 @@ class VkPhotosGet:
                 "likes": photo["likes"]["count"]
             }
             self.photos_list.append(new_dict)
+        logging.info("Список успешно получен")
         return self.photos_list
