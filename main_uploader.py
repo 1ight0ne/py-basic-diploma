@@ -34,7 +34,8 @@ class YandexUpload(VkPhotosGet):
                     }
                 )
                 if result.status_code != 202:
-                    logging.error(f"ошибка! Код: {result.status_code} {result.json()}")
+                    logging.error(
+                        f"Код: {result.status_code}, ответ: {result.json()}")
                     return result
                 return_dict = {
                     "file_name": file_name,
