@@ -1,4 +1,6 @@
+import logging
 import requests
+
 from conf import VK_TOKEN, VK_USER_ID, VK_VERSON, VK_API_URL
 
 
@@ -25,6 +27,10 @@ class VkPhotosGet:
                 "photo_sizes": 1
             }
         )
+        if res.status_code != 200 or "error" in res.json():
+            logging.error(
+                f"Код ответа: {res.status_code}, ответ: {res.json()}")
+            return res
         res_json = res.json()["response"]["items"]
         vk_photo_sizes = 'smxopqryzw'
         for photo in res_json:
